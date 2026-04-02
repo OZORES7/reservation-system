@@ -71,7 +71,7 @@
    </div> 
   </section>
   <script>
-  function showMessage(event) {
+  async function showMessage(event) {
     event.preventDefault();
     var email = document.getElementById('email').value;
     if (email.trim() === '') {
@@ -82,7 +82,30 @@
       alert('Please enter a valid email address');
       return false;
     }
-    document.getElementById('messageBox').classList.add('show');
+
+    try {
+      var response = await fetch('http://127.0.0.1:8000/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email
+        })
+      });
+
+      if (!response.ok) {
+        var data = await response.json();
+        alert(data.detail || 'Unable to process reset request');
+        return false;
+      }
+
+      document.getElementById('messageBox').classList.add('show');
+    } catch (error) {
+      alert('Cannot connect to API. Make sure FastAPI server is running.');
+      return false;
+    }
+
     return false;
   }
   </script>

@@ -31,7 +31,7 @@
     <div class="content"> 
      <h2>Sign In</h2> 
      <div class="form"> 
-      <form action="main.html" method="get" onsubmit="return validateForm()">
+      <form onsubmit="return validateForm(event)">
        <div class="inputBox"> 
         <input type="text" id="username" required> <i>Username</i> 
        </div> 
@@ -53,14 +53,42 @@
    </div> 
   </section>
   <script>
-  function validateForm() {
+  async function validateForm(event) {
+    event.preventDefault();
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     if (username.trim() === '' || password.trim() === '') {
       alert('Please fill in both username and password');
       return false;
     }
-    return true;
+
+    try {
+      var response = await fetch('http://127.0.0.1:8000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      });
+
+      var data = await response.json();
+      if (!response.ok) {
+        alert(data.detail || 'Login failed');
+        return false;
+      }
+
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('username', data.user.username);
+      localStorage.setItem('user_id', data.user.id);
+      window.location.href = 'main.html';
+    } catch (error) {
+      alert('Cannot connect to API. Make sure FastAPI server is running.');
+    }
+
+    return false;
   }
   </script>
  </body>
