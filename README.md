@@ -22,4 +22,4 @@ The system helps reduce long queues at the cinema and provides cinema management
 ## 🏗️ System Architecture
 
 
-🔗 [Architecture Documentation](https://raw.githubusercontent.com/OZORES7/reservation-system/refs/heads/main/ARCHITECTURE.md)
+🔗 [Architecture Documentation](https://github.com/OZORES7/reservation-system/blob/main/ARCHITECTURE.md)
