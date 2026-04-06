@@ -22,4 +22,19 @@ The system helps reduce long queues at the cinema and provides cinema management
 ## 🏗️ System Architecture
 
 
-🔗 [Architecture Documentation](https://github.com/OZORES7/reservation-system/blob/6fa3403455f116a9f2ffa6696e276399400b9b05/ARCHITECTURE.md)
+🔗 [Architecture Documentation](https://raw.githubusercontent.com/OZORES7/reservation-system/refs/heads/main/ARCHITECTURE.md)
+
+---
+
+## 🗄️ Database Backend
+
+This repo now includes the SQLite + FastAPI backend from the older Movie web version.
+
+To run it locally:
+
+```bash
+pip install -r requirements.txt
+python -m uvicorn api:app --host 127.0.0.1 --port 8000
+```
+
+The auth pages and seat booking page talk to `http://127.0.0.1:8000`.

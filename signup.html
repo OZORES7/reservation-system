@@ -43,7 +43,7 @@
     <div class="content"> 
      <h2>Sign Up</h2> 
      <div class="form"> 
-      <form action="main.html" method="get" onsubmit="return validateForm()">
+      <form onsubmit="return validateForm(event)">
        <div class="inputBox"> 
         <input type="text" id="username" required> <i>Username</i> 
        </div>
@@ -65,7 +65,8 @@
    </div> 
   </section>
   <script>
-  function validateForm() {
+  async function validateForm(event) {
+    event.preventDefault();
     var username = document.getElementById('username').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
@@ -77,7 +78,33 @@
       alert('Please enter a valid email address');
       return false;
     }
-    return true;
+
+    try {
+      var response = await fetch('http://127.0.0.1:8000/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          password: password
+        })
+      });
+
+      var data = await response.json();
+      if (!response.ok) {
+        alert(data.detail || 'Signup failed');
+        return false;
+      }
+
+      alert('Signup successful. Please login.');
+      window.location.href = 'login.html';
+    } catch (error) {
+      alert('Cannot connect to API. Make sure FastAPI server is running.');
+    }
+
+    return false;
   }
   </script>
  </body>
