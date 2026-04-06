@@ -42,6 +42,7 @@ Describes the physical distribution of components.
 * *Successful Reservation:* User clicks book -> Frontend checks seat -> Backend queries DB -> Success returned.
 * *Simultaneous Booking:* Two users click "Book" for seat A1 -> System locks row; User 1 succeeds, User 2 receives error.
 
+
 ## 9. Size and Performance
 * *Performance:* All reservation requests must complete in less than 1 second.
 * *Capacity:* Designed to handle multiple concurrent users via efficient database transactions.
@@ -50,3 +51,17 @@ Describes the physical distribution of components.
 * *Security:* External payment gateway integration and credential management.
 * *Reliability:* ACID properties guarantee that transactions are processed reliably.
 * *Risk Mitigation:* An abstraction layer is implemented to allow switching between payment providers if needed.
+
+## Appendices
+
+### Acronyms and Abbreviations
+* *ACID:* Atomicity, Consistency, Isolation, Durability
+* *API:* Application Programming Interface
+* *ORM:* Object-Relational Mapping
+
+### Definitions
+* *Double-Booking:* A failure state where one seat is sold to two different customers.
+
+### Design Principles
+* *Decoupling:* Separating the UI from logic via Client-Server architecture.
+* *Abstraction:* Using layers to reduce dependency on external third-party services.
