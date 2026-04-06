@@ -41,3 +41,12 @@ Describes the physical distribution of components.
 ## 8. Scenarios
 * *Successful Reservation:* User clicks book -> Frontend checks seat -> Backend queries DB -> Success returned.
 * *Simultaneous Booking:* Two users click "Book" for seat A1 -> System locks row; User 1 succeeds, User 2 receives error.
+
+## 9. Size and Performance
+* *Performance:* All reservation requests must complete in less than 1 second.
+* *Capacity:* Designed to handle multiple concurrent users via efficient database transactions.
+
+## 10. Quality
+* *Security:* External payment gateway integration and credential management.
+* *Reliability:* ACID properties guarantee that transactions are processed reliably.
+* *Risk Mitigation:* An abstraction layer is implemented to allow switching between payment providers if needed.
