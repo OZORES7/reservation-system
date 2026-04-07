@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23020307'/%3E%3Cpath d='M18 20h28v24H18z' fill='%23ff2c1f'/%3E%3Ccircle cx='23' cy='26' r='2.5' fill='white'/%3E%3Ccircle cx='23' cy='38' r='2.5' fill='white'/%3E%3Ccircle cx='41' cy='26' r='2.5' fill='white'/%3E%3Ccircle cx='41' cy='38' r='2.5' fill='white'/%3E%3C/svg%3E"> 
+  <link rel="stylesheet" href="signup.css"> 
+  <style>
+    .inputBox {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    .links {
+      margin: 20px 0 25px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .content h2 {
+      margin-bottom: 30px;
+    }
+    .signin {
+      padding: 20px 0;
+    }
+    input[type="submit"] {
+      margin-top: 5px;
+    }
+    .signin-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .signin-link a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .signin-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+ </head> 
+ <body> 
+  <section> 
+   <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+   <div class="signin"> 
+    <div class="content"> 
+     <h2>Sign Up</h2> 
+     <div class="form"> 
+      <form onsubmit="return validateForm(event)">
+       <div class="inputBox"> 
+        <input type="text" id="username" required> <i>Username</i> 
+       </div>
+       <div class="inputBox"> 
+        <input type="email" id="email" required> <i>Email</i> 
+       </div> 
+       <div class="inputBox"> 
+        <input type="password" id="password" required> <i>Password</i> 
+       </div> 
+       <div class="inputBox"> 
+        <input type="submit" value="Sign Up"> 
+       </div>
+       <div class="signin-link">
+        <a href="login.html">Already have an account? Sign In</a>
+       </div>
+      </form>
+     </div> 
+    </div> 
+   </div> 
+  </section>
+  <script src="app-config.js"></script>
+  <script>
+  async function validateForm(event) {
+    event.preventDefault();
+    var username = document.getElementById('username').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    if (username.trim() === '' || email.trim() === '' || password.trim() === '') {
+      alert('Please fill in all fields');
+      return false;
+    }
+    if (!email.includes('@') || !email.includes('.')) {
+      alert('Please enter a valid email address');
+      return false;
+    }
+
+    try {
+      var response = await fetch(window.APP_CONFIG.apiBaseUrl + '/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          password: password
+        })
+      });
+
+      var data = await response.json();
+      if (!response.ok) {
+        alert(data.detail || 'Signup failed');
+        return false;
+      }
+
+      alert('Signup successful. Please login.');
+      window.location.href = 'login.html';
+    } catch (error) {
+      alert('Cannot connect to API. Make sure FastAPI server is running.');
+    }
+
+    return false;
+  }
+  </script>
+ </body>
+</html>

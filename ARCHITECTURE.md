@@ -1,67 +1,124 @@
-# Cinema Online Reservation System - Architecture Document
+# Cinema Online Reservation System - Architecture
 
-## 1. Scope
-The purpose of this project is to develop a web-based system that simplifies ticket booking, reduces physical queues, and provides management tools for cinema administrators.
+## Overview
 
-## 2. Software Architecture
-The system follows a *Client-Server Architecture* to decouple the User Interface from the core business logic.
+This project uses a simple client-server setup:
 
-## 3. Architectural Goals & Constraints
-* *Goals:* High performance (under 1s), security (credential management), and high usability (booking under 3 minutes).
-* *Constraints:* Must use Python for Backend, HTML/CSS/JS for Frontend, and integrate with an external Payment Gateway API.
+- Frontend: HTML, CSS, and JavaScript files in `source code/`
+- Backend: FastAPI application in `source code/api.py`
+- Database: SQLite file in `source code/cinema_home.db`
+- Payment flow: local sandbox logic in `source code/payment_gateway/`
 
-## 4. Logical Architecture + (Use Case + ERD)
-This view focuses on the functional components and their relationships.
-* *User Interface:* Responsive web design for cross-browser compatibility.
-* *Business Logic:* Python-based API routes handling movie schedules and seat availability.
-* *Data Management:* A relational database to ensure ACID compliance, preventing double-booking of seats.
+## Scope
 
-## 5. Process Architecture + (Sequence Diagram)
-Describes the system’s runtime behavior and concurrency handling.
+The system provides:
 
-* *Concurrency:* If two users attempt to book the same seat simultaneously, the system uses a *Row Lock* in the database.
-* *Availability:* The system allows movie browsing even if the external Payment Gateway is down.
+- Online movie ticket booking with seat selection
+- User account management (registration, login)
+- Movie and showtime browsing
+- Seat reservation with locking to prevent double-booking
+- Booking confirmation via sandbox payment flow
 
-## 6. Development Architecture + (C4 Level 2 (Container))
-Focuses on the software organization and the development environment.
+## Constraints
 
-### Structure
-* *Frontend:* HTML, CSS, and JS files.
-* *Backend:* Python scripts and API routes.
-* *docs/:* Documentation and architectural diagrams.
+- Python backend with FastAPI framework
+- HTML/CSS/JS frontend (static files)
+- SQLite database for persistence
+- Sandbox payment integration (no real payments)
 
-*Rationale:* Python was selected for rapid development and its robust library support for ORM and API handling.
+## Logical Architecture
 
-## 7. Physical Architecture (Deployment) + (Deployment Diagram)
-Describes the physical distribution of components.
+The main functional view of the system.
 
-* *Environment:* A web-based platform accessible through modern browsers.
-* *Deployment:* The Backend and Frontend are hosted on a web server, connecting over the network to a Relational Database and an external Payment Gateway.
+![Use Case Diagram](ARCHITECTURE%20IMGS/logical-use-case.png)
+![ERD](ARCHITECTURE%20IMGS/logical-erd.jpeg)
 
-## 8. Scenarios
-* *Successful Reservation:* User clicks book -> Frontend checks seat -> Backend queries DB -> Success returned.
-* *Simultaneous Booking:* Two users click "Book" for seat A1 -> System locks row; User 1 succeeds, User 2 receives error.
+## Process Architecture
 
+Runtime behavior and concurrency handling.
 
-## 9. Size and Performance
-* *Performance:* All reservation requests must complete in less than 1 second.
-* *Capacity:* Designed to handle multiple concurrent users via efficient database transactions.
+![Concurrency](ARCHITECTURE%20IMGS/process-concurrency.png)
+![Availability](ARCHITECTURE%20IMGS/process-availability.png)
 
-## 10. Quality
-* *Security:* External payment gateway integration and credential management.
-* *Reliability:* ACID properties guarantee that transactions are processed reliably.
-* *Risk Mitigation:* An abstraction layer is implemented to allow switching between payment providers if needed.
+### Runtime Flow
+
+1. The user opens the movie listing in the browser.
+2. Clicking a movie sends the selected showtime and poster into the seat booking page.
+3. The booking page requests seat availability from the FastAPI backend.
+4. The user selects seats and creates a booking.
+5. The sandbox payment flow confirms or cancels the booking.
+
+### Data Flow
+
+- User accounts, bookings, seats, and payments are stored in SQLite.
+- The API seeds sample movies, showtimes, and seats if the database is empty.
+- Seat locking is handled by the database so two users cannot confirm the same seat at the same time.
+
+## Development Architecture
+
+How the codebase is organized.
+
+![C4 Container](ARCHITECTURE%20IMGS/development-container.png)
+
+- Frontend: HTML, CSS, and JavaScript pages.
+- Backend: Python API routes and helper modules.
+- Docs: architecture notes and payment flow documentation.
+
+Python is used for the backend because it is fast to develop with and fits the API/database workflow in this project.
+
+## Physical Architecture
+
+How the application is deployed and accessed.
+
+![Deployment Diagram](ARCHITECTURE%20IMGS/physical-deployment.png)
+
+## Size & Performance
+
+- Performance target: reservation requests should complete quickly enough for a smooth booking flow.
+- Capacity target: the system should support multiple users through database transactions and seat locking.
+
+## Quality
+
+- Security: authentication, password hashing, and payment sandboxing.
+- Reliability: ACID-style database behavior for bookings and seat allocation.
+- Flexibility: payment handling is isolated so providers can be swapped later.
+
+## Scenarios
+
+Example booking outcomes.
+
+![Successful Reservation](ARCHITECTURE%20IMGS/scenario-successful-reservation.png)
+![Simultaneous Booking](ARCHITECTURE%20IMGS/scenario-simultaneous-booking.png)
+
+## Deployment
+
+The included launch scripts run the app locally:
+
+- `run_app.bat` on Windows
+- `run_app.sh` on macOS/Linux
+
+Both scripts start the API on port `8000` and a static frontend server on port `3000`.
+
+## References
+
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [SQLite Documentation](https://www.sqlite.org/docs.html)
+- [MDN Web Docs - HTML/CSS/JS](https://developer.mozilla.org/)
+- [Uvicorn Documentation](https://www.uvicorn.org/)
 
 ## Appendices
 
-### Acronyms and Abbreviations
-* *ACID:* Atomicity, Consistency, Isolation, Durability
-* *API:* Application Programming Interface
-* *ORM:* Object-Relational Mapping
+### Acronyms
+
+- ACID: Atomicity, Consistency, Isolation, Durability
+- API: Application Programming Interface
+- ORM: Object-Relational Mapping
 
 ### Definitions
-* *Double-Booking:* A failure state where one seat is sold to two different customers.
+
+- Double-booking: the same seat being reserved by more than one user.
 
 ### Design Principles
-* *Decoupling:* Separating the UI from logic via Client-Server architecture.
-* *Abstraction:* Using layers to reduce dependency on external third-party services.
+
+- Decoupling: UI and backend logic are separated.
+- Abstraction: payment logic is isolated behind the gateway layer.

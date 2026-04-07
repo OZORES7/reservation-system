@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theater Booking App</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23020307'/%3E%3Cpath d='M18 20h28v24H18z' fill='%23ff2c1f'/%3E%3Ccircle cx='23' cy='26' r='2.5' fill='white'/%3E%3Ccircle cx='23' cy='38' r='2.5' fill='white'/%3E%3Ccircle cx='41' cy='26' r='2.5' fill='white'/%3E%3Ccircle cx='41' cy='38' r='2.5' fill='white'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css">
+    <link rel="stylesheet" href="seats.css">
+</head>
+  <body>
+
+    <div class="inputForm">
+      <div class="inputFormInner">
+        <label class="fieldGroup">
+          <span>Name *</span>
+          <input type="text" id="Username" required>
+        </label>
+        <label class="fieldGroup">
+          <span>Showtime ID *</span>
+          <input type="number" id="ShowtimeId" min="1" value="1" required>
+        </label>
+        <div class="inputActions">
+          <button type="button" class="secondaryButton" id="refreshSeatMapButton" onclick="takeData()">Refresh Seat Map</button>
+          <p class="inputHint">Available seats load automatically. Pick any open seats directly from the map.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="seatStructure">
+    <center>
+    <p id="notification" class="seatNotification"></p>
+    <div class="selectionSummary" aria-live="polite">
+      <strong id="seatSelectionCount">0 seats selected</strong>
+      <span id="seatSelectionList">Choose any available seats from the map.</span>
+    </div>
+
+    <table id="seatsBlock">
+      <tr>
+        <td colspan="14"><div class="screen">SCREEN</div></td>
+        <td rowspan="20">
+          <div class="smallBox greenBox">Selected Seat</div> <br/>
+          <div class="smallBox redBox">Reserved Seat</div><br/>
+          <div class="smallBox emptyBox">Empty Seat</div><br/>
+        </td>
+
+        <br/>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td></td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+    </tr>
+
+    <tr>
+        <td>A</td>
+        <td><input type="checkbox" class="seats" value="A1"></td>
+        <td><input type="checkbox" class="seats" value="A2"></td>
+        <td><input type="checkbox" class="seats" value="A3"></td>
+        <td><input type="checkbox" class="seats" value="A4"></td>
+        <td><input type="checkbox" class="seats" value="A5"></td>
+        <td class="seatGap"></td>
+        <td><input type="checkbox" class="seats" value="A6"></td>
+        <td><input type="checkbox" class="seats" value="A7"></td>
+        <td><input type="checkbox" class="seats" value="A8"></td>
+        <td><input type="checkbox" class="seats" value="A9"></td>
+        <td><input type="checkbox" class="seats" value="A10"></td>
+        <td><input type="checkbox" class="seats" value="A11"></td>
+        <td><input type="checkbox" class="seats" value="A12"></td>
+      </tr>
+
+      <tr>
+        <td>B</td>
+        <td><input type="checkbox" class="seats" value="B1"></td>
+        <td><input type="checkbox" class="seats" value="B2"></td>
+        <td><input type="checkbox" class="seats" value="B3"></td>
+        <td><input type="checkbox" class="seats" value="B4"></td>
+        <td><input type="checkbox" class="seats" value="B5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="B6"></td>
+        <td><input type="checkbox" class="seats" value="B7"></td>
+        <td><input type="checkbox" class="seats" value="B8"></td>
+        <td><input type="checkbox" class="seats" value="B9"></td>
+        <td><input type="checkbox" class="seats" value="B10"></td>
+        <td><input type="checkbox" class="seats" value="B11"></td>
+        <td><input type="checkbox" class="seats" value="B12"></td>
+      </tr>
+
+      <tr>
+        <td>C</td>
+        <td><input type="checkbox" class="seats" value="C1"></td>
+        <td><input type="checkbox" class="seats" value="C2"></td>
+        <td><input type="checkbox" class="seats" value="C3"></td>
+        <td><input type="checkbox" class="seats" value="C4"></td>
+        <td><input type="checkbox" class="seats" value="C5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="C6"></td>
+        <td><input type="checkbox" class="seats" value="C7"></td>
+        <td><input type="checkbox" class="seats" value="C8"></td>
+        <td><input type="checkbox" class="seats" value="C9"></td>
+        <td><input type="checkbox" class="seats" value="C10"></td>
+        <td><input type="checkbox" class="seats" value="C11"></td>
+        <td><input type="checkbox" class="seats" value="C12"></td>
+    </tr>
+
+    <tr>
+        <td>D</td>
+        <td><input type="checkbox" class="seats" value="D1"></td>
+        <td><input type="checkbox" class="seats" value="D2"></td>
+        <td><input type="checkbox" class="seats" value="D3"></td>
+        <td><input type="checkbox" class="seats" value="D4"></td>
+        <td><input type="checkbox" class="seats" value="D5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="D6"></td>
+        <td><input type="checkbox" class="seats" value="D7"></td>
+        <td><input type="checkbox" class="seats" value="D8"></td>
+        <td><input type="checkbox" class="seats" value="D9"></td>
+        <td><input type="checkbox" class="seats" value="D10"></td>
+        <td><input type="checkbox" class="seats" value="D11"></td>
+        <td><input type="checkbox" class="seats" value="D12"></td>
+    </tr>
+
+    <tr>
+        <td>E</td>
+        <td><input type="checkbox" class="seats" value="E1"></td>
+        <td><input type="checkbox" class="seats" value="E2"></td>
+        <td><input type="checkbox" class="seats" value="E3"></td>
+        <td><input type="checkbox" class="seats" value="E4"></td>
+        <td><input type="checkbox" class="seats" value="E5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="E6"></td>
+        <td><input type="checkbox" class="seats" value="E7"></td>
+        <td><input type="checkbox" class="seats" value="E8"></td>
+        <td><input type="checkbox" class="seats" value="E9"></td>
+        <td><input type="checkbox" class="seats" value="E10"></td>
+        <td><input type="checkbox" class="seats" value="E11"></td>
+        <td><input type="checkbox" class="seats" value="E12"></td>
+    </tr>
+
+    <tr class="seatVGap"></tr>
+
+    <tr>
+        <td>F</td>
+        <td><input type="checkbox" class="seats" value="F1"></td>
+        <td><input type="checkbox" class="seats" value="F2"></td>
+        <td><input type="checkbox" class="seats" value="F3"></td>
+        <td><input type="checkbox" class="seats" value="F4"></td>
+        <td><input type="checkbox" class="seats" value="F5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="F6"></td>
+        <td><input type="checkbox" class="seats" value="F7"></td>
+        <td><input type="checkbox" class="seats" value="F8"></td>
+        <td><input type="checkbox" class="seats" value="F9"></td>
+        <td><input type="checkbox" class="seats" value="F10"></td>
+        <td><input type="checkbox" class="seats" value="F11"></td>
+        <td><input type="checkbox" class="seats" value="F12"></td>
+    </tr>
+
+    <tr>
+        <td>G</td>
+        <td><input type="checkbox" class="seats" value="G1"></td>
+        <td><input type="checkbox" class="seats" value="G2"></td>
+        <td><input type="checkbox" class="seats" value="G3"></td>
+        <td><input type="checkbox" class="seats" value="G4"></td>
+        <td><input type="checkbox" class="seats" value="G5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="G6"></td>
+        <td><input type="checkbox" class="seats" value="G7"></td>
+        <td><input type="checkbox" class="seats" value="G8"></td>
+        <td><input type="checkbox" class="seats" value="G9"></td>
+        <td><input type="checkbox" class="seats" value="G10"></td>
+        <td><input type="checkbox" class="seats" value="G11"></td>
+        <td><input type="checkbox" class="seats" value="G12"></td>
+    </tr>
+
+    <tr>
+        <td>H</td>
+        <td><input type="checkbox" class="seats" value="H1"></td>
+        <td><input type="checkbox" class="seats" value="H2"></td>
+        <td><input type="checkbox" class="seats" value="H3"></td>
+        <td><input type="checkbox" class="seats" value="H4"></td>
+        <td><input type="checkbox" class="seats" value="H5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="H6"></td>
+        <td><input type="checkbox" class="seats" value="H7"></td>
+        <td><input type="checkbox" class="seats" value="H8"></td>
+        <td><input type="checkbox" class="seats" value="H9"></td>
+        <td><input type="checkbox" class="seats" value="H10"></td>
+        <td><input type="checkbox" class="seats" value="H11"></td>
+        <td><input type="checkbox" class="seats" value="H12"></td>
+    </tr>
+
+    <tr>
+        <td>I</td>
+        <td><input type="checkbox" class="seats" value="I1"></td>
+        <td><input type="checkbox" class="seats" value="I2"></td>
+        <td><input type="checkbox" class="seats" value="I3"></td>
+        <td><input type="checkbox" class="seats" value="I4"></td>
+        <td><input type="checkbox" class="seats" value="I5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="I6"></td>
+        <td><input type="checkbox" class="seats" value="I7"></td>
+        <td><input type="checkbox" class="seats" value="I8"></td>
+        <td><input type="checkbox" class="seats" value="I9"></td>
+        <td><input type="checkbox" class="seats" value="I10"></td>
+        <td><input type="checkbox" class="seats" value="I11"></td>
+        <td><input type="checkbox" class="seats" value="I12"></td>
+    </tr>
+
+    <tr>
+        <td>J</td>
+        <td><input type="checkbox" class="seats" value="J1"></td>
+        <td><input type="checkbox" class="seats" value="J2"></td>
+        <td><input type="checkbox" class="seats" value="J3"></td>
+        <td><input type="checkbox" class="seats" value="J4"></td>
+        <td><input type="checkbox" class="seats" value="J5"></td>
+        <td></td>
+        <td><input type="checkbox" class="seats" value="J6"></td>
+        <td><input type="checkbox" class="seats" value="J7"></td>
+        <td><input type="checkbox" class="seats" value="J8"></td>
+        <td><input type="checkbox" class="seats" value="J9"></td>
+        <td><input type="checkbox" class="seats" value="J10"></td>
+        <td><input type="checkbox" class="seats" value="J11"></td>
+        <td><input type="checkbox" class="seats" value="J12"></td>
+    </tr>
+
+    </table>
+    <br/><button type="button" class="primaryButton" id="continueButton" onclick="updateTextArea()">Continue to Payment</button>
+    </center>
+    </div>
+
+    <!-- Floating Sandbox Badge -->
+    <div class="sandboxBadge is-hidden" id="sandboxBadge">
+      <span class="badgeDot"></span>
+      <span class="badgeText">Sandbox Mode</span>
+    </div>
+
+    <div class="checkoutPanel is-hidden" id="checkoutPanel" aria-live="polite">
+      <div class="checkoutRail">
+        <div class="railIcon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="21" x2="9" y2="9"/>
+          </svg>
+        </div>
+        <div class="railText">
+          <span class="railLabel">Sandbox</span>
+          <span class="railName">Gateway</span>
+          <span class="railHint">Test mode</span>
+        </div>
+      </div>
+
+      <div class="checkoutBody">
+        <div class="checkoutHeader">
+          <div>
+            <p class="eyebrow">Payment Gateway</p>
+            <h2>Confirm Reservation</h2>
+            <p id="paymentDescription">Your seats are held until the sandbox payment succeeds.</p>
+          </div>
+          <div class="statusPill" id="paymentStatusPill">Waiting for checkout</div>
+        </div>
+
+        <div class="checkoutGrid">
+          <div class="checkoutCard checkoutSummary">
+            <h3>Reservation Summary</h3>
+            <div class="summaryRow">
+              <span>Booking Code</span>
+              <strong id="reservationCode">-</strong>
+            </div>
+            <div class="summaryRow">
+              <span>Seats</span>
+              <strong id="reservationSeats">-</strong>
+            </div>
+            <div class="summaryRow">
+              <span>Total</span>
+              <strong id="reservationAmount">-</strong>
+            </div>
+            <div class="summaryRow">
+              <span>Showtime</span>
+              <strong id="reservationShowtime">-</strong>
+            </div>
+            <p class="summaryNote">Use one of the sandbox cards on the right to simulate success or failure.</p>
+          </div>
+
+          <div class="checkoutCard checkoutForm">
+            <!-- Test Mode Selector -->
+            <div class="testModeSelector">
+              <div class="modeHeader">
+                <span class="modeTitle">Test Result</span>
+                <span class="modeHint">Choose payment outcome</span>
+              </div>
+              <div class="modeToggle">
+                <button type="button" class="modeButton is-success" data-mode="success" onclick="setTestMode('success')">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Success</span>
+                </button>
+                <button type="button" class="modeButton" data-mode="failure" onclick="setTestMode('failure')">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                  <span>Failure</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Card Brand Selector -->
+            <div class="brandSelector">
+              <button type="button" class="brandCard is-visa" data-brand="visa" onclick="selectCardBrand('visa')">
+                <svg class="visaLogo" viewBox="0 0 750 471" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#1A1F71" d="M277.3 336.3h-46.8l29.3-179.9h46.8l-29.3 179.9zm199.3-175.8c-9.3-3.5-23.8-7.3-41.9-7.3-46.2 0-78.7 23.4-78.9 56.9-.3 24.7 23.3 38.5 41.1 46.7 18.3 8.4 24.4 13.7 24.3 21.2-.1 11.5-14.4 16.7-27.7 16.7-18.5 0-28.4-2.7-43.6-9.3l-6-2.8-6.4 38.1c10.7 4.7 30.5 8.8 50.9 8.9 49.1 0 81-22.3 81.4-58.3.2-19.6-12.3-34.5-39.2-46.8-16.3-7.8-26.3-13-26.2-20.9 0-7 8.5-14.5 26.9-14.5 15.1-.2 26.1 3.1 34.6 6.6l4.2 1.9 6.2-36.9zm130.2-4.1h-36.3c-11.2 0-19.6 3.1-24.5 14.1l-69.5 161.8h49.1s8-21.1 9.8-25.7c5.3 0 52.6.1 59.4.1 1.4 5.9 5.7 25.6 5.7 25.6h43.4l-37.1-175.9zm-56.7 113.4c3.8-9.6 18.5-47.6 18.5-47.6-.3.5 3.8-9.7 6.2-16l3.1 14.5s8.9 41.4 10.7 50.1h-38.5zM189.2 156.4l-45.8 122.5-4.9-23.9c-8.5-27.6-35.1-57.5-64.8-72.4l41.9 153.7h49.5l73.6-179.9h-49.5z"/>
+                  <path fill="#F9A533" d="M95.4 156.4H29.4l-.5 2.9c51.4 12.4 85.3 42.4 99.4 78.4l-14.4-69.3c-2.5-10.8-10.7-11.7-18.5-12z"/>
+                </svg>
+                <span>Visa</span>
+              </button>
+              <button type="button" class="brandCard" data-brand="mastercard" onclick="selectCardBrand('mastercard')">
+                <svg class="mastercardLogo" viewBox="0 0 750 471" xmlns="http://www.w3.org/2000/svg">
+                  <circle fill="#EB001B" cx="285" cy="235.5" r="135"/>
+                  <circle fill="#F79E1B" cx="465" cy="235.5" r="135"/>
+                  <path fill="#FF5F00" d="M375 145.5c34.5 30 56.5 74 56.5 122.5s-22 92.5-56.5 122.5c-34.5-30-56.5-74-56.5-122.5s22-92.5 56.5-122.5z"/>
+                </svg>
+                <span>Mastercard</span>
+              </button>
+            </div>
+
+            <div class="paymentFields">
+              <label>
+                Cardholder Name
+                <input type="text" id="cardholderName" placeholder="Test Customer">
+              </label>
+              <label>
+                Card Number
+                <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" inputmode="numeric" autocomplete="cc-number">
+              </label>
+              <div class="cardBrands" aria-label="Supported cards">
+                <span class="brandLabel">Accepted cards</span>
+                <div class="brandIcons">
+                  <svg class="visaIcon" viewBox="0 0 750 471" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#1A1F71" d="M277.3 336.3h-46.8l29.3-179.9h46.8l-29.3 179.9zm199.3-175.8c-9.3-3.5-23.8-7.3-41.9-7.3-46.2 0-78.7 23.4-78.9 56.9-.3 24.7 23.3 38.5 41.1 46.7 18.3 8.4 24.4 13.7 24.3 21.2-.1 11.5-14.4 16.7-27.7 16.7-18.5 0-28.4-2.7-43.6-9.3l-6-2.8-6.4 38.1c10.7 4.7 30.5 8.8 50.9 8.9 49.1 0 81-22.3 81.4-58.3.2-19.6-12.3-34.5-39.2-46.8-16.3-7.8-26.3-13-26.2-20.9 0-7 8.5-14.5 26.9-14.5 15.1-.2 26.1 3.1 34.6 6.6l4.2 1.9 6.2-36.9zm130.2-4.1h-36.3c-11.2 0-19.6 3.1-24.5 14.1l-69.5 161.8h49.1s8-21.1 9.8-25.7c5.3 0 52.6.1 59.4.1 1.4 5.9 5.7 25.6 5.7 25.6h43.4l-37.1-175.9zm-56.7 113.4c3.8-9.6 18.5-47.6 18.5-47.6-.3.5 3.8-9.7 6.2-16l3.1 14.5s8.9 41.4 10.7 50.1h-38.5zM189.2 156.4l-45.8 122.5-4.9-23.9c-8.5-27.6-35.1-57.5-64.8-72.4l41.9 153.7h49.5l73.6-179.9h-49.5z"/>
+                    <path fill="#F9A533" d="M95.4 156.4H29.4l-.5 2.9c51.4 12.4 85.3 42.4 99.4 78.4l-14.4-69.3c-2.5-10.8-10.7-11.7-18.5-12z"/>
+                  </svg>
+                  <svg class="mastercardIcon" viewBox="0 0 750 471" xmlns="http://www.w3.org/2000/svg">
+                    <circle fill="#EB001B" cx="285" cy="235.5" r="135"/>
+                    <circle fill="#F79E1B" cx="465" cy="235.5" r="135"/>
+                    <path fill="#FF5F00" d="M375 145.5c34.5 30 56.5 74 56.5 122.5s-22 92.5-56.5 122.5c-34.5-30-56.5-74-56.5-122.5s22-92.5 56.5-122.5z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="splitFields">
+                <label>
+                  Expiry
+                  <input type="text" id="cardExpiry" placeholder="12/34" autocomplete="cc-exp">
+                </label>
+                <label>
+                  CVC
+                  <input type="text" id="cardCvc" placeholder="123" inputmode="numeric" autocomplete="cc-csc">
+                </label>
+              </div>
+            </div>
+
+            <div class="checkoutActions">
+              <button type="button" class="secondaryButton" onclick="resetCheckout()">Back to Seats</button>
+              <button type="button" class="primaryButton" id="payButton" onclick="submitPayment()">Pay and Confirm</button>
+            </div>
+
+            <div class="paymentResult" id="paymentResult">
+              Select a test card to autofill the sandbox form.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br/><br/>
+
+    <div class="displayerBoxes">
+    <center>
+      <table class="Displaytable">
+      <tr>
+        <th>Name</th>
+        <th>Selected Count</th>
+        <th>Seats</th>
+      </tr>
+      <tr>
+        <td><textarea id="nameDisplay"></textarea></td>
+        <td><textarea id="NumberDisplay"></textarea></td>
+        <td><textarea id="seatsDisplay"></textarea></td>
+      </tr>
+    </table>
+    </center>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script src="app-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

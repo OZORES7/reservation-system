@@ -1,0 +1,27 @@
+    .message-box {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 15px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 20px 0;
+  display: none;
+}
+.message-box.show {
+  display: block;
+}
+.back-link {
+  text-align: center;
+  margin-top: 15px;
+}
+.back-link a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.back-link a:hover {
+  color: #0f0;
+  text-decoration: underline;
+}
