@@ -38,14 +38,14 @@
 
 ## List of Figures
 
-1. **Use Case Diagram** — `ARCHITECTURE IMGS/logical-use-case.png`
-2. **ERD** — `ARCHITECTURE IMGS/logical-erd.jpeg`
-3. **Concurrency** — `ARCHITECTURE IMGS/process-concurrency.png`
-4. **Availability** — `ARCHITECTURE IMGS/process-availability.png`
-5. **C4 Container** — `ARCHITECTURE IMGS/development-container.png`
-6. **Deployment Diagram** — `ARCHITECTURE IMGS/physical-deployment.png`
-7. **Successful Reservation** — `ARCHITECTURE IMGS/scenario-successful-reservation.png`
-8. **Simultaneous Booking** — `ARCHITECTURE IMGS/scenario-simultaneous-booking.png`
+1. **Use Case Diagram** — `ARCHITECTURE%20IMGS/logical-use-case.png`
+2. **ERD** — `ARCHITECTURE%20IMGS/logical-erd.jpeg`
+3. **Concurrency** — `ARCHITECTURE%20IMGS/process-concurrency.png`
+4. **Availability** — `ARCHITECTURE%20IMGS/process-availability.png`
+5. **C4 Container** — `ARCHITECTURE%20IMGS/development-container.png`
+6. **Deployment Diagram** — `ARCHITECTURE%20IMGS/physical-deployment.png`
+7. **Successful Reservation** — `ARCHITECTURE%20IMGS/scenario-successful-reservation.png`
+8. **Simultaneous Booking** — `ARCHITECTURE%20IMGS/scenario-simultaneous-booking.png`
 
 ## 1. Scope
 
@@ -96,18 +96,18 @@ At runtime, the browser UI calls the backend API to fetch movies/showtimes, retr
 
 The main functional view of the system (Kruchten’s logical view) is captured by the use cases and the domain data model.
 
-![Use Case Diagram](ARCHITECTURE IMGS/logical-use-case.png)
+![Use Case Diagram](ARCHITECTURE%20IMGS/logical-use-case.png)
 
 The data model is implemented in SQLite tables such as `users`, `movies`, `showtimes`, `seats`, `bookings`, `booking_seats`, and `payments` (see `source code/db_setup.py`).
 
-![ERD](ARCHITECTURE IMGS/logical-erd.jpeg)
+![ERD](ARCHITECTURE%20IMGS/logical-erd.jpeg)
 
 ## 6. Process Architecture
 
 Runtime behavior and concurrency handling (Kruchten’s process view).
 
-![Concurrency](ARCHITECTURE IMGS/process-concurrency.png)
-![Availability](ARCHITECTURE IMGS/process-availability.png)
+![Concurrency](ARCHITECTURE%20IMGS/process-concurrency.png)
+![Availability](ARCHITECTURE%20IMGS/process-availability.png)
 
 ### Runtime Flow
 
@@ -127,11 +127,11 @@ Runtime behavior and concurrency handling (Kruchten’s process view).
 
 How the codebase is organized (Kruchten’s development view).
 
-![C4 Container](ARCHITECTURE IMGS/development-container.png)
+![C4 Container](ARCHITECTURE%20IMGS/development-container.png)
 
 - **Frontend**: HTML/CSS/JS pages under `source code/` (served via a static server).
 - **Backend**: `source code/api.py` (FastAPI app) + helper modules (e.g., `source code/db_setup.py`, `source code/payment_gateway/`).
-- **Docs**: `README.md`, `ARCHITECTURE.md`, and diagrams under `ARCHITECTURE IMGS/`.
+- **Docs**: `README.md`, `ARCHITECTURE.md`, and diagrams under `ARCHITECTURE%20IMGS/`.
 
 Python is used for the backend because it is fast to develop with and fits the API/database workflow in this project.
 
@@ -139,7 +139,7 @@ Python is used for the backend because it is fast to develop with and fits the A
 
 How the application is deployed and accessed (Kruchten’s physical view).
 
-![Deployment Diagram](ARCHITECTURE IMGS/physical-deployment.png)
+![Deployment Diagram](ARCHITECTURE%20IMGS/physical-deployment.png)
 
 ### Local Deployment (Course Submission)
 
@@ -157,8 +157,8 @@ Both scripts start:
 
 Example booking outcomes (Kruchten’s “+1” view).
 
-![Successful Reservation](ARCHITECTURE IMGS/scenario-successful-reservation.png)
-![Simultaneous Booking](ARCHITECTURE IMGS/scenario-simultaneous-booking.png)
+![Successful Reservation](ARCHITECTURE%20IMGS/scenario-successful-reservation.png)
+![Simultaneous Booking](ARCHITECTURE%20IMGS/scenario-simultaneous-booking.png)
 
 ## 10. Size and Performance
 
