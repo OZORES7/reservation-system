@@ -2,12 +2,11 @@
 
 ## Title Page
 
-### Document Information
-
-- **Document**: Software Architecture (4+1 View Model)
-- **Project**: Cinema Online Ticket Reservation System
-- **Repository**: `reservation-system`
-- **Date**: 2026-04-09
+**Document**: Software Architecture (4+1 View Model)
+**Project**: Cinema Online Ticket Reservation System
+**Repository**: `reservation-system`
+**Version**: 1.0
+**Date**: 2026-04-09
 
 ## Change History
 
@@ -18,8 +17,6 @@
 ## Table of Contents
 
 - [Title Page](#title-page)
-  - [Document Information](#document-information)
-  - [Team Details](#team-details-1)
 - [Change History](#change-history)
 - [Table of Contents](#table-of-contents)
 - [List of Figures](#list-of-figures)
