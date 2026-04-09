@@ -38,14 +38,14 @@
 
 ## List of Figures
 
-1. **Use Case Diagram** — `ARCHITECTURE IMGS/logical-use-case.png`
-2. **ERD** — `ARCHITECTURE IMGS/logical-erd.jpeg`
-3. **Concurrency** — `ARCHITECTURE IMGS/process-concurrency.png`
-4. **Availability** — `ARCHITECTURE IMGS/process-availability.png`
-5. **C4 Container** — `ARCHITECTURE IMGS/development-container.png`
-6. **Deployment Diagram** — `ARCHITECTURE IMGS/physical-deployment.png`
-7. **Successful Reservation** — `ARCHITECTURE IMGS/scenario-successful-reservation.png`
-8. **Simultaneous Booking** — `ARCHITECTURE IMGS/scenario-simultaneous-booking.png`
+1. [**Use Case Diagram**](ARCHITECTURE%20IMGS/logical-use-case.png) — `ARCHITECTURE IMGS/logical-use-case.png`
+2. [**ERD**](ARCHITECTURE%20IMGS/logical-erd.jpeg) — `ARCHITECTURE IMGS/logical-erd.jpeg`
+3. [**Concurrency**](ARCHITECTURE%20IMGS/process-concurrency.png) — `ARCHITECTURE IMGS/process-concurrency.png`
+4. [**Availability**](ARCHITECTURE%20IMGS/process-availability.png) — `ARCHITECTURE IMGS/process-availability.png`
+5. [**C4 Container**](ARCHITECTURE%20IMGS/development-container.png) — `ARCHITECTURE IMGS/development-container.png`
+6. [**Deployment Diagram**](ARCHITECTURE%20IMGS/physical-deployment.png) — `ARCHITECTURE IMGS/physical-deployment.png`
+7. [**Successful Reservation**](ARCHITECTURE%20IMGS/scenario-successful-reservation.png) — `ARCHITECTURE IMGS/scenario-successful-reservation.png`
+8. [**Simultaneous Booking**](ARCHITECTURE%20IMGS/scenario-simultaneous-booking.png) — `ARCHITECTURE IMGS/scenario-simultaneous-booking.png`
 
 ## 1. Scope
 
@@ -96,18 +96,18 @@ At runtime, the browser UI calls the backend API to fetch movies/showtimes, retr
 
 The main functional view of the system (Kruchten’s logical view) is captured by the use cases and the domain data model.
 
-![Use Case Diagram](ARCHITECTURE IMGS/logical-use-case.png)
+![Use Case Diagram](ARCHITECTURE%20IMGS/logical-use-case.png)
 
 The data model is implemented in SQLite tables such as `users`, `movies`, `showtimes`, `seats`, `bookings`, `booking_seats`, and `payments` (see `source code/db_setup.py`).
 
-![ERD](ARCHITECTURE IMGS/logical-erd.jpeg)
+![ERD](ARCHITECTURE%20IMGS/logical-erd.jpeg)
 
 ## 6. Process Architecture
 
 Runtime behavior and concurrency handling (Kruchten’s process view).
 
-![Concurrency](ARCHITECTURE IMGS/process-concurrency.png)
-![Availability](ARCHITECTURE IMGS/process-availability.png)
+![Concurrency](ARCHITECTURE%20IMGS/process-concurrency.png)
+![Availability](ARCHITECTURE%20IMGS/process-availability.png)
 
 ### Runtime Flow
 
@@ -127,11 +127,11 @@ Runtime behavior and concurrency handling (Kruchten’s process view).
 
 How the codebase is organized (Kruchten’s development view).
 
-![C4 Container](ARCHITECTURE IMGS/development-container.png)
+![C4 Container](ARCHITECTURE%20IMGS/development-container.png)
 
 - **Frontend**: HTML/CSS/JS pages under `source code/` (served via a static server).
 - **Backend**: `source code/api.py` (FastAPI app) + helper modules (e.g., `source code/db_setup.py`, `source code/payment_gateway/`).
-- **Docs**: `README.md`, `ARCHITECTURE.md`, and diagrams under `ARCHITECTURE IMGS/`.
+- **Docs**: `README.md`, `ARCHITECTURE.md`, and diagrams under `ARCHITECTURE%20IMGS/`.
 
 Python is used for the backend because it is fast to develop with and fits the API/database workflow in this project.
 
@@ -139,7 +139,7 @@ Python is used for the backend because it is fast to develop with and fits the A
 
 How the application is deployed and accessed (Kruchten’s physical view).
 
-![Deployment Diagram](ARCHITECTURE IMGS/physical-deployment.png)
+![Deployment Diagram](ARCHITECTURE%20IMGS/physical-deployment.png)
 
 ### Local Deployment (Course Submission)
 
@@ -155,10 +155,39 @@ Both scripts start:
 
 ## 9. Scenarios
 
-Example booking outcomes (Kruchten’s “+1” view).
+Example booking outcomes (Kruchten's "+1" view).
 
-![Successful Reservation](ARCHITECTURE IMGS/scenario-successful-reservation.png)
-![Simultaneous Booking](ARCHITECTURE IMGS/scenario-simultaneous-booking.png)
+### User Scenario Stories
+
+**Scenario 1: Successful Reservation**
+
+| Field | Value |
+|-------|-------|
+| **ID** | UC-01 |
+| **Title** | User completes a successful reservation |
+| **Primary Actor** | Registered user |
+| **Precondition** | User is logged in; showtime has available seats |
+| **Main Flow** | 1. User browses movie list and selects a movie<br>2. User selects a showtime<br>3. User selects desired seats on the seat map<br>4. System creates a pending booking<br>5. User enters payment details in sandbox gateway<br>6. System confirms booking and deducts seats<br>7. User receives confirmation |
+| **Postcondition** | Booking status is `confirmed`; seats are reserved |
+| **Extensions** | 5a. Payment declined → booking canceled, seats released |
+
+![Successful Reservation](ARCHITECTURE%20IMGS/scenario-successful-reservation.png)
+
+---
+
+**Scenario 2: Simultaneous Booking (Race Condition)**
+
+| Field | Value |
+|-------|-------|
+| **ID** | UC-02 |
+| **Title** | Two users attempt to book the same seat simultaneously |
+| **Primary Actor** | Registered user A, Registered user B |
+| **Precondition** | Both users are logged in; both view the same showtime with the same seat available |
+| **Main Flow** | 1. User A selects seat S5 (pending)<br>2. User B selects seat S5 (pending)<br>3. User A completes payment first → seat S5 confirmed for A<br>4. User B completes payment → system detects seat is no longer available<br>5. System rejects B's booking and refunds |
+| **Postcondition** | Booking for A is `confirmed`; Booking for B is `canceled` or rejected |
+| **Variation** | If both complete payment within the same transaction window, database constraints ensure only one succeeds |
+
+![Simultaneous Booking](ARCHITECTURE%20IMGS/scenario-simultaneous-booking.png)
 
 ## 10. Size and Performance
 
